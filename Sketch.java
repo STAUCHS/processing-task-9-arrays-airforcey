@@ -28,6 +28,7 @@ public class Sketch extends PApplet {
       float x = width - 50 + i * 20;
       float y = 20;
       rect(x, y, 10, 10);
+      fill(255, 0, 0);
 
     }
   }
@@ -51,8 +52,19 @@ public class Sketch extends PApplet {
   }
   
   // making the mushroom lives
-  int imgLives = 3;
+  int mushroomLives = 3;
 
+
+  // control dumps
+  boolean wPressed = false;
+  boolean aPressed = false;
+  boolean sPressed = false;
+  boolean dPressed = false;
+  boolean upPressed = false;
+  boolean downPressed = false;
+  boolean leftPressed = false;
+  boolean rightPressed = false;
+  
   public void setup() {
     background(0);
 
@@ -74,35 +86,71 @@ public class Sketch extends PApplet {
   public void draw() {
     background(0);
 
+  
+
     // draw snow
     snow();
 
     // draw image
+    fill(250, 65, 250);
     image(imgMushroom ,fltMushroomX, fltMushroomY);
     fltMushroomX = constrain(fltMushroomX, 0, width - 50);
     fltMushroomY = constrain(fltMushroomY, 0, height - 50);
 
+    // hp for the mushroom
     drawMushroomLives();
-  
-
   }
+
+  
   
   
   // All other defined methods are written below:
   public void snow() {
     for (int i = 0; i < snowX.length; i++ ) {
-      if(ballHideStatus[i]) {
+      if(!ballHideStatus[i]) {
         circle(snowX[i], snowY[i], snowDiameter);
         snowY[i] +=0.5;
         snowY[i] += 1; 
       }
       
       // the mushroom lives and collision updater/checker
-      if (collision(fltMushroomX + 20, snowX[i], snowY[i], 20, snowDiameter)) {
-        mushroomLives--;
+      if (collision(fltMushroomX + 20, snowX[i], snowY[i], 20, snowDiameter, snowDiameter)) {
+        mushroomLives = 0;
         snowY[i] = 0;
       }
 
+      // snow slowing down
+      if (upPressed) {
+        snowY[i] -= 0.5;
+      }
+
+      if (downPressed) {
+        snowY[i] += 1.5;
+      }
+
+      if (leftPressed) {
+        snowY[i] += 0.5;
+      }
+
+      if (downPressed) {
+        snowY[i] += 1.5;
+      }
+
+      if (wPressed) {
+        snowY[i] -= 0.5;
+      }
+
+      if(aPressed) {
+        snowY[i] += 1;
+      }
+
+      if (sPressed) {
+        snowY[i] += 1.5;
+      }
+
+      if (dPressed) {
+        snowY[i] += 1;
+      }
 
 
       // reset snowflakes back to the top
