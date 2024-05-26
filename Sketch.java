@@ -34,9 +34,11 @@ public class Sketch extends PApplet {
   }
 
 
-  // x and y coordinate for the mushroom
+  // x and y coordinate and size for the mushroom
   float fltMushroomX = 0;
   float fltMushroomY = 0;
+  float mushroomDiameter = 20;
+
 
 
   // Related arrays for the (x, y) coordinate of the snowflakes
@@ -101,6 +103,30 @@ public class Sketch extends PApplet {
     drawMushroomLives();
   }
 
+
+  public void mushroomMovement() {
+    if (keyPressed) {
+      if (key == 'w' || key == 'W') {
+        fltMushroomY -= 5;
+      }
+      if (key == 's' || key == 'S') {
+        fltMushroomY += 5;
+      }
+      if (key == 'a' || key == 'A') {
+        fltMushroomX -= 5;
+      }
+      if (key == 'd' || key == 'D') {
+        fltMushroomX += 5;
+      }
+
+
+  // mushroom boundaries
+    if (fltMushroomX < mushroomDiameter / 2) fltMushroomX = mushroomDiameter / 2;
+    if (fltMushroomX > width - mushroomDiameter / 2) fltMushroomX = width - mushroomDiameter / 2;
+    if (fltMushroomY < mushroomDiameter / 2) fltMushroomY = mushroomDiameter / 2;
+    if (fltMushroomY > height - mushroomDiameter / 2) fltMushroomY = height - mushroomDiameter / 2;
+    }
+  }
   
   
   
